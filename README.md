@@ -4,9 +4,6 @@ Um dashboard financeiro pessoal ultra compacto e gamificado, construído com **H
 
 O objetivo deste projeto é ir além de uma simples planilha de gastos, atuando como um "assistente de sobrevivência mensal". Ele calcula seu orçamento diário, cria travas de segurança para você não ficar no vermelho e incentiva o hábito de poupar através de metas visuais.
 
-![Print do Projeto - Tema Escuro](link-da-sua-imagem-dark.png)
-*(Coloque aqui uma imagem do seu projeto rodando)*
-
 ## ✨ Funcionalidades
 
 - **🔒 Trava de Sobrevivência (Bloqueio Inteligente):** Se o saldo da Conta Corrente cair abaixo de um limite crítico (ex: R$ 400), o sistema emite um alerta e bloqueia novas saídas da conta, forçando o usuário a usar apenas o Vale Alimentação.
