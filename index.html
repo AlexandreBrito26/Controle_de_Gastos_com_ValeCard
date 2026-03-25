@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUD Financeiro Ultra Compacto</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+
+    <div class="container">
+        <div class="header-tools">
+            <h2>Controle Mensal</h2>
+            <button id="theme-toggle" class="btn-theme" onclick="alternarTema()">🌙</button>
+        </div>
+
+        <div class="grid-2">
+            <div class="card-box cofrinho-destaque">
+                <div class="hud-header"><span>💰 Cofrinho</span> <span id="txt-cofrinho" class="valor-destaque">R$ 0.00</span></div>
+                <div class="barra-fundo thin-bar"><div id="barra-cofrinho-meta" class="barra-preenchimento" style="background-color: #f1fa8c; width: 0%;"></div></div>
+                <button class="btn-text" onclick="definirMeta()">Definir Meta</button>
+            </div>
+            <div class="card-box daily-hud">
+                <div class="hud-header"><span style="color: #a6da95;">🎯 Orçamento Diário</span></div>
+                <div class="daily-value" id="daily-allowance">R$ 0.00</div>
+                <div id="days-left" class="daily-label">Faltam X dias</div>
+            </div>
+        </div>
+
+        <div class="grid-2 mt-2">
+            <div class="card-box">
+                <div class="hud-header"><span>🏦 Salário</span> <span id="txt-salario" class="valor-destaque">R$ 0.00</span></div>
+                <div class="barra-fundo thin-bar"><div id="barra-salario" class="barra-preenchimento"></div></div>
+            </div>
+            <div class="card-box">
+                <div class="hud-header"><span>💳 Vale</span> <span id="txt-vale" class="valor-destaque">R$ 0.00</span></div>
+                <div class="barra-fundo thin-bar"><div id="barra-vale" class="barra-preenchimento"></div></div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="expenseChart"></canvas>
+        </div>
+
+        <div class="card-box form-compact">
+            <div class="grid-2">
+                <select id="tipo-gasto" title="De onde vai sair?">
+                    <option value="salario" id="opt-salario">Conta (Dinheiro)</option>
+                    <option value="vale">Vale Card</option>
+                </select>
+                <select id="categoria-gasto" title="Com o que gastou?">
+                    <option value="Moradia">Moradia</option>
+                    <option value="Mercado">Mercado</option>
+                    <option value="Carne">Açougue</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Outros">Outros</option>
+                </select>
+            </div>
+            <div class="grid-form-action mt-2">
+                <input type="number" id="valor-gasto" placeholder="Valor (R$)" step="0.01">
+                <button id="btn-registrar" class="btn-principal" onclick="registrarGasto()">Registrar</button>
+            </div>
+        </div>
+
+        <div class="card-box historico mt-2">
+            <div class="hud-header" style="margin-bottom: 2px;">
+                <span style="color: var(--primary);">Lançamentos</span>
+                <button class="btn-text" onclick="desfazerUltimoGasto()">↩️ Desfazer</button>
+            </div>
+            <ul id="lista-historico"></ul>
+        </div>
+
+        <div class="action-bar mt-2">
+            <button class="btn-reset" onclick="iniciarNovoMes()">🔄 Novo Mês</button>
+            <button class="btn-secundario" onclick="exportarBackup()">📤 Exportar</button>
+            <button class="btn-secundario" onclick="importarBackup()">📥 Importar</button>
+        </div>
+    </div>
+
+    <div id="modal-bloqueio">
+        <div class="modal-content">
+            <h3>⚠️ SALDO CRÍTICO</h3>
+            <p>Conta bloqueada. Use apenas o Vale Card.</p>
+            <button class="btn-fechar-modal" onclick="fecharModal()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
