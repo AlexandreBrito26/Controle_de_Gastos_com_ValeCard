@@ -1,30 +1,34 @@
-# 💰 HUD Financeiro Pro
+💼 Carteira — Controle Mensal
 
-Um dashboard financeiro pessoal ultra compacto e gamificado, construído com **HTML, CSS e Vanilla JavaScript**. 
+A Carteira é uma aplicação web focada em simplificar a gestão financeira pessoal. Com um design elegante e feedbacks visuais imediatos, ela funciona como um verdadeiro HUD para o seu dinheiro, transformando o desafio de fechar o mês no azul em uma experiência muito mais visual e interativa com botões e alertas super responsivos.
 
-O objetivo deste projeto é ir além de uma simples planilha de gastos, atuando como um "assistente de sobrevivência mensal". Ele calcula seu orçamento diário, cria travas de segurança para você não ficar no vermelho e incentiva o hábito de poupar através de metas visuais.
+Tudo roda direto no seu navegador, sem necessidade de banco de dados, garantindo 100% de privacidade.
 
-## ✨ Funcionalidades
+📌 Principais Funcionalidades
 
-- **🔒 Trava de Sobrevivência (Bloqueio Inteligente):** Se o saldo da Conta Corrente cair abaixo de um limite crítico (ex: R$ 400), o sistema emite um alerta e bloqueia novas saídas da conta, forçando o usuário a usar apenas o Vale Alimentação.
-- **🎯 Orçamento Diário Dinâmico:** Calcula automaticamente o valor exato que você pode gastar no dia de hoje para que o dinheiro dure até o último dia do mês.
-- **🐷 Cofrinho Gamificado ("Pague-se Primeiro"):** Ao iniciar o mês, o app incentiva a separar um valor para poupar antes de começar a gastar. Possui barra de progresso baseada em metas.
-- **📊 Gráficos Interativos:** Resumo visual de gastos por categoria (Moradia, Mercado, Lazer, etc) gerado automaticamente via `Chart.js`.
-- **💾 Persistência de Dados Local:** Salva tudo no navegador usando `localStorage`. Pode ser usado offline.
-- **📦 Importação e Exportação de Backup:** Baixe seus dados em formato `.json` para não perder o histórico se trocar de dispositivo.
-- **🌓 Temas Light e Dark Mode:** Alteração de cores dinâmica com salvamento de preferência.
+📅 Orçamento Diário Automático: O app calcula quanto você pode gastar por dia com base nos dias restantes do mês.
 
-## 🛠️ Tecnologias Utilizadas
+🚨 Sistema de Saldo Crítico: Se o saldo da conta principal cair para R$ 400,00 ou menos, o sistema entra em alerta vermelho e bloqueia o uso da conta, forçando o uso do Vale Card.
 
-- **HTML5** (Estrutura semântica)
-- **CSS3** (Variáveis CSS, CSS Grid, Flexbox, Mobile First)
-- **JavaScript (ES6+)** (Manipulação de DOM, LocalStorage, Lógica matemática)
-- **Chart.js** (Biblioteca para renderização do gráfico de rosca)
+🪙 Cofrinho: Defina uma meta financeira e acompanhe o progresso da sua economia.
 
-## 🚀 Como Executar o Projeto
+💳 Gestão Dupla: Lançamentos separados para a sua Conta Bancária e o seu Vale Card.
 
-Este projeto é 100% Front-end e não requer instalação de pacotes ou servidores para rodar localmente.
+📊 Gráficos e Histórico: Visualização de categorias com Chart.js e um botão para desfazer lançamentos incorretos instantaneamente.
 
-1. Clone este repositório:
-   ```bash
-   git clone [https://github.com/SEU-USUARIO/hud-financeiro.git](https://github.com/SEU-USUARIO/hud-financeiro.git)
+🗂️ Exportação e Backup: Gere relatórios em PDF, planilhas em Excel e exporte seus dados em JSON diretamente via LocalStorage.
+
+🛠️ Tecnologias Utilizadas
+
+🌐 HTML5, CSS3 e JavaScript puro.
+📈 Chart.js para os gráficos.
+📄 jsPDF para relatórios em PDF.
+📊 SheetJS para conversão de dados em Excel.
+
+🚀 Como Executar
+
+Por ser uma aplicação inteiramente front-end, a execução é imediata:
+
+1️⃣ Faça o clone do repositório.
+2️⃣ Abra a pasta do projeto no seu computador.
+3️⃣ Abra o arquivo index.html em qualquer navegador.
