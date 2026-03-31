@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteira — Controle Mensal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div class="app">
+
+        <!-- TOPO -->
+        <header class="app-header">
+            <div class="header-left">
+                <p class="header-eyebrow">Meu Controle</p>
+                <h1 class="header-title">Carteira</h1>
+            </div>
+            <div class="header-right">
+                <button id="theme-toggle" class="btn-icon" onclick="alternarTema()" title="Alternar tema">🌙</button>
+                <button class="btn-icon btn-novo-mes" onclick="iniciarNovoMes()" title="Novo Mês">↺</button>
+            </div>
+        </header>
+
+        <!-- SALDO TOTAL -->
+        <section class="saldo-hero">
+            <p class="saldo-label">Saldo disponível total</p>
+            <h2 class="saldo-valor" id="saldo-total">R$ 0,00</h2>
+            <div class="saldo-pill" id="pill-orcamento-diario">
+                <span class="pill-icon">📅</span>
+                <span id="txt-orcamento-diario">R$ 0,00 por dia</span>
+                <span id="txt-dias-faltam" class="pill-sep">— Faltam <strong>X</strong> dias</span>
+            </div>
+        </section>
+
+        <!-- CARDS SALÁRIO / VALE -->
+        <section class="cards-row">
+            <div class="card card-conta">
+                <div class="card-top">
+                    <span class="card-icon">🏦</span>
+                    <span class="card-label">Conta</span>
+                </div>
+                <p class="card-value" id="txt-salario">R$ 0,00</p>
+                <div class="barra-track"><div class="barra-fill fill-conta" id="barra-salario"></div></div>
+                <p class="card-status" id="status-conta">—</p>
+            </div>
+            <div class="card card-vale">
+                <div class="card-top">
+                    <span class="card-icon">💳</span>
+                    <span class="card-label">Vale Card</span>
+                </div>
+                <p class="card-value" id="txt-vale">R$ 0,00</p>
+                <div class="barra-track"><div class="barra-fill fill-vale" id="barra-vale"></div></div>
+                <p class="card-status" id="status-vale">—</p>
+            </div>
+        </section>
+
+        <!-- COFRINHO -->
+        <section class="cofrinho-section card">
+            <div class="cofrinho-row">
+                <div>
+                    <p class="card-label">🪙 Cofrinho</p>
+                    <p class="cofrinho-valor" id="txt-cofrinho">R$ 0,00</p>
+                </div>
+                <div class="cofrinho-meta-col">
+                    <p class="meta-label" id="txt-meta-label">Meta: —</p>
+                    <button class="btn-ghost" onclick="definirMeta()">Definir meta</button>
+                </div>
+            </div>
+            <div class="barra-track mt-1"><div class="barra-fill fill-cofrinho" id="barra-cofrinho" style="width:0%"></div></div>
+        </section>
+
+        <!-- GRÁFICO -->
+        <section class="chart-section card">
+            <p class="section-title">Gastos por categoria</p>
+            <div class="chart-wrap">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO DE LANÇAMENTO -->
+        <section class="form-section card">
+            <p class="section-title">Novo lançamento</p>
+            <div class="form-grid">
+                <select id="tipo-gasto" class="input-field">
+                    <option value="salario" id="opt-salario">Conta</option>
+                    <option value="vale">Vale Card</option>
+                </select>
+                <select id="categoria-gasto" class="input-field">
+                    <option value="Moradia">🏠 Moradia</option>
+                    <option value="Mercado">🛒 Mercado</option>
+                    <option value="Carne">🥩 Açougue</option>
+                    <option value="Transporte">🚌 Transporte</option>
+                    <option value="Lazer">🎭 Lazer</option>
+                    <option value="Outros">📦 Outros</option>
+                </select>
+                <input type="number" id="valor-gasto" class="input-field input-valor" placeholder="R$ 0,00" step="0.01">
+                <button class="btn-registrar" onclick="registrarGasto()">Registrar</button>
+            </div>
+        </section>
+
+        <!-- HISTÓRICO -->
+        <section class="historico-section card">
+            <div class="historico-header">
+                <p class="section-title">Lançamentos</p>
+                <button class="btn-ghost btn-desfazer" onclick="desfazerUltimoGasto()">↩ Desfazer</button>
+            </div>
+            <ul id="lista-historico" class="historico-lista"></ul>
+            <p class="historico-vazio" id="historico-vazio">Nenhum lançamento ainda.</p>
+        </section>
+
+        <!-- AÇÕES DE EXPORTAÇÃO -->
+        <section class="acoes-row">
+            <button class="btn-acao" onclick="exportarPDF()">
+                <span class="acao-icon">📄</span>
+                <span>Exportar PDF</span>
+            </button>
+            <button class="btn-acao" onclick="exportarExcel()">
+                <span class="acao-icon">📊</span>
+                <span>Exportar Excel</span>
+            </button>
+            <button class="btn-acao btn-acao-sec" onclick="exportarBackup()">
+                <span class="acao-icon">📤</span>
+                <span>Backup</span>
+            </button>
+            <button class="btn-acao btn-acao-sec" onclick="importarBackup()">
+                <span class="acao-icon">📥</span>
+                <span>Restaurar</span>
+            </button>
+        </section>
+
+    </div>
+
+    <!-- MODAL CRÍTICO -->
+    <div id="modal-bloqueio">
+        <div class="modal-box">
+            <div class="modal-icon">⚠️</div>
+            <h3>Saldo Crítico</h3>
+            <p>Sua conta está abaixo do limite seguro.<br>Use apenas o Vale Card agora.</p>
+            <button class="btn-modal-ok" onclick="fecharModal()">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
